@@ -1,0 +1,24 @@
+/* TEAM */
+Designer: David Paulsson
+Site: http://davidpaulsson.se/
+Twitter: @davidpaulsson
+Location: Västerås, Sweden
+
+Designer: Peppe Bergqvist
+Site: http://p.bergqvi.st/
+Twitter: @peppelorum
+Location: Västerås, Sweden
+
+Designer: Håkan Edling
+Site: http://www.tidyui.com/
+Twitter: @tidyui
+Location: Västerås, Sweden
+
+/* THANKS */
+Name: name or url
+
+/* SITE */
+Last update: YYYY/MM/DD
+Standards: HTML5, CSS3,..
+Components: Modernizr, jQuery, etc.
+Software: Software used for the development
