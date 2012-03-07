@@ -70,8 +70,9 @@ input:focus, textarea:focus {
 	border-bottom: 1px solid #121212;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
 	color: white;
+	font-family: "etica","Helvetica Neue",Helvetica,Arial,sans-serif;	
 }
 
 h6 {
@@ -424,18 +425,86 @@ pre {
 /* For modern browsers */
 .cf:before,
 .cf:after {
-    content:"";
-    display:table;
+	content:"";
+	display:table;
 }
 
 .cf:after {
-    clear:both;
+	clear:both;
 }
 
 /* For IE 6/7 (trigger hasLayout) */
 .cf {
-    zoom:1;
+	zoom:1;
 }
+
+
+/** =====================================================
+ *	How do you do?
+ */
+
+/* CSS Document */
+.howdydo-style {
+	background: #ffffcc;
+	border-bottom: 3px solid #FFF;
+	color: #333;
+	text-align: center;
+	font-size: 14px;
+	-moz-box-shadow: 0px 2px 4px #000;
+	-webkit-box-shadow: 0px 2px 4px #000;
+	box-shadow: 0px 2px 4px #000;
+}
+
+.howdydo-style a {
+	color: #000;
+	font-weight: bold;
+}
+
+#howdydo-wrapper {
+	overflow: visible;
+	padding: 0;
+	width: 100%;
+}
+
+.howdydo-box {
+	display: none;
+	padding: 10px 0;
+	width: 100%;
+	z-index: 9999;
+}
+
+#howdydo-close {
+	position: absolute;
+/*	float: right; 
+	margin: 0 30px 0 0; */
+	bottom: 10px;
+	right: 30px;
+}
+
+#howdydo-open {
+	padding: 8px;
+	position: absolute;
+	right: 20px;
+	top: 0;
+	border-right: 3px solid #fff;
+	border-left: 3px solid #fff;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+}
+
+.hover { 
+	position: absolute; top: 0;  left: 0;
+}
+
+.scroll { 
+	position: fixed; top: 0;  left: 0; 
+}
+
+.push {	
+	position: relative; clear: both; float: left; margin-bottom: 1px;
+}
+
 
 /** =====================================================
  *	Icons
@@ -445,12 +514,30 @@ pre {
 
 
 /** =====================================================
+ *	Header
+ */
+
+header[role="banner"] {
+	background: url(../img/bgr-header.png) no-repeat right top;
+	height: 300px;
+}
+
+
+/** =====================================================
  *	Blog entries
  */
 
+ul.social {
+	list-style-type: none;
+	margin-left: 0;
+}
+
+ul.social li {
+	margin-bottom: 1em;
+}
+
 .entry-title {
 	color: #ffffcc;
-	font-family: "etica","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 4.25em;
 	line-height: 1.05882em;	
 }

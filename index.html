@@ -53,7 +53,7 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="css/bootstrap-responsive.css" type="text/css" />
-	<link href="css/prettify.min.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/prettify.min.css" type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -93,7 +93,7 @@
 	</div><!-- .row -->
 	
 	<div class="row">
-		<div class="span8">
+		<div class="span9">
 			<div id="content" role="main">
 		
 				<article>
@@ -109,25 +109,24 @@
 					<hr />
 					<div class="row">
 						<div class="span1" id="social-buttons">
-							<ul class="social buttons">
+							&nbsp;
+							<div id="scroller-anchor"></div>
+							<ul class="social buttons" id="scroller">
 								<li>
-									<fb:like href="http://raggarhack.se" send="true" showfaces="false" width="120" layout="button_count" action="like"/>
+									<fb:like href="http://raggarhack.se" send="true" showfaces="false" width="120" layout="box_count" action="like"/>
 								</fb:like></li>
 								<li>
-								  <a href="http://twitter.com/share" data-url="http://raggarhack.se" data-text="Sidtiteln" data-via="raggarhack" class="twitter-share-button">Tweet</a>
+								  <a href="http://twitter.com/share" data-url="http://raggarhack.se" data-count="vertical" data-text="Sidtiteln" data-via="raggarhack" class="twitter-share-button">Tweet</a>
 								</li>
 								<li>
-								  <g:plusone size="medium" callback="plusone_vote"></g:plusone>
+								  <g:plusone size="tall" callback="plusone_vote"></g:plusone>
 								</li>
 								<li>
-								  <script type="in/share" data-url="http://raggarhack.se" data-counter="right"></script>
-								</li>
-								<li>
-								  <div id="stumbleupon-button"></div>
+								  <script type="in/share" data-url="http://raggarhack.se" data-counter="top"></script>
 								</li>
 							</ul><!-- .social .buttons -->
 						</div><!-- .span1 -->
-						<div class="span7">
+						<div class="span8">
 							<div class="entry-content">
 				
 								<p>A small paragraph to <em>emphasis</em> and show <strong>important</strong> bits.</p>
@@ -232,9 +231,9 @@
 					</footer>
 				</article>
 			</div><!-- #content -->
-		</div><!-- .span8 -->
+		</div><!-- .span9 -->
 	
-		<div class="span4">
+		<div class="span3">
 			<div id="sidebar" role="complementary">
 		
 				<aside>
@@ -277,7 +276,7 @@
 				</aside>
 				
 			</div><!-- #sidebar -->
-		</div><!-- .span4 -->
+		</div><!-- .span3 -->
 	</div><!-- .row -->
 	
 	<div class="row">
@@ -292,16 +291,17 @@
 
 </div><!-- .container -->
 
-<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-<!-- rel="dns-prefetch"? What the? https://github.com/h5bp/html5-boilerplate/wiki/DNS-Prefetching -->
-<script rel="dns-prefetch" href="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.1.min.js"><\/script>')</script>
+<div id="howdy">
+	<span class="iconic pen_alt_fill"></span>Tja! I am the Howdy-do Bar. Brylcreme, stålkam och gällivarehäng! Välkommen till Raggarhack.se. Anmäl dig till nyhetsbrevet nu! <a href="#">dismiss me!</a><br />
+</div>
 
-<!-- Load minified scripts below -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/prettify.min.js"></script>
-<script src="js/socialite.min.js"></script>
-<script src="js/app.js"></script>
+<!-- Minified scripts below -->
+<script async rel="dns-prefetch" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script async rel="dns-prefetch" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<script async src="js/bootstrap.min.js"></script>
+<script async src="js/prettify.min.js"></script>
+<script async src="js/jquery.howdydo-bar.min.js"></script>
+<script async src="js/app.js"></script>
 <!-- end scripts-->
 
 <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->

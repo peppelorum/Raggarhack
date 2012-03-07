@@ -1,4 +1,23 @@
 /**
+ * Sticky social buttons
+ */
+function moveScroller() {
+	var a = function() {
+		var b = $(window).scrollTop();
+		var d = $("#scroller-anchor").offset().top;
+		var c=$("#scroller");
+		if (b>d) {
+		c.css({position:"fixed",top:"0px"})
+		} else {
+			if (b<=d) {
+				c.css({position:"relative",top:""})
+			}
+		}
+	};
+	$(window).scroll(a);a()
+}
+
+/**
  * Load Tweet Button Script
  */
 window.fbAsyncInit = function() {
@@ -13,7 +32,7 @@ window.fbAsyncInit = function() {
 	document.getElementById('fb-root').appendChild(e);
 }());
 
-jQuery(document).ready(function($) {
+$(document).ready(function() {
 	
 	/**
 	 * Load Tweet Button Script
@@ -40,12 +59,13 @@ jQuery(document).ready(function($) {
 	document.getElementsByTagName('head')[0].appendChild(e);
 	
 	/**
-	 * Load StumbleUpon button
+	 * How do you do?
 	 */
-	var e = document.createElement('script');
-	e.type="text/javascript"; e.async = true;
-	e.src =
-	'http://www.stumbleupon.com/hostedbadge.php?s=1&a=1&d=stumbleupon-button';
-	document.getElementsByTagName('head')[0].appendChild(e);
+	$( '#howdy' ).howdyDo();
+
+	/**
+	 * Sticky social buttons
+	 */
+	moveScroller();
 	
-}
+});
