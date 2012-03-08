@@ -4,12 +4,18 @@ $(document).ready(function() {
 	 * Lettering
 	 */
 	$(".site-title").lettering();
-	
+		
 	/**
 	 * How do you do?
 	 */
-	$( '#howdy' ).howdyDo();
-	
+			$( '#howdy' ).howdyDo({
+				action		: 'push',
+				effect		: 'slide',
+				easing		: 'easeInOutExpo',
+				duration	: 500,
+				openAnchor	: '<span class="iconic arrow_down"></span>',
+				closeAnchor	: '<span class="iconic arrow_up"></span>'
+			});	
 	/**
 	 * Sticky social buttons
 	 */
@@ -51,7 +57,7 @@ function moveScroller() {
 		var d = $("#scroller-anchor").offset().top;
 		var c=$("#scroller");
 		if (b>d) {
-		c.css({position:"fixed",top:"0px"})
+		c.css({position:"fixed",top:"20px"})
 		} else {
 			if (b<=d) {
 				c.css({position:"relative",top:""})

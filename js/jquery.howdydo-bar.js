@@ -2,8 +2,8 @@
 /*
  * This is a simple jQuery notification bar inspired by the stackoverflow.com notification bar and the Hello Bar.
  * 
- * Version 0.1.5
- * March 21, 2011
+ * Version 0.1.7
+ * August 24, 2011
  *
  * Howdy-do Notification Bar w/ jQuery by Leo Silva is licensed under a 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -20,6 +20,7 @@
  *		initState	: 'closed', 		// initial bar state: 'closed' | 'open'
  *		keepState	: true, 			// sets cookie to remember previous bar state.
  *		autoStart	: true, 			// shows bar on page load
+ *		softClose	: false				// closes the bar on a document click (outside the bar)
  *		barClass	: 'howdydo-style',	// your own customized Howdy-do bar style
  *		openAnchor	: 'show', 			// html element or text
  *		closeAnchor	: 'hide',			// html element or text
@@ -41,10 +42,10 @@
 			delay		: 500, 				// delay before autoStart in milliseconds
 			hideAfter	: 0, 				// autoHide delay in milliseconds: 0 (disabled)
 			initState	: 'closed', 		// initial bar state: 'closed' | 'open'
-			keepState	: true, 			// sets cookie to remember previous bar state.
+			keepState	: true, 			// sets cookie to remember previous bar state
 			autoStart	: true, 			// shows bar on page load
+			softClose	: false,			// closes the bar on a document click (outside the bar)
 			barClass	: 'howdydo-style',	// your own customized Howdy-do bar style
-			barStyle    : 'hellobar',       // the style of the bar i.e. Hellobar vs Stackoverflow
 			openAnchor	: 'show', 			// html element or text
 			closeAnchor	: 'hide',			// html element or text
 			callback	: function(){}		// callback function
@@ -63,13 +64,12 @@
 		var objOpen = $( '#howdydo-open' ); // open anchor element
 		var objClose = $( '#howdydo-close' ); // close anchor element
 
-		objWrapper.after("<div id='header-space' style='clear:both;'></div>"); // clear <div> hack
+		objWrapper.after("<div style='clear:both;'></div>"); // clear <div> hack
 
 		switch( options.action ){ // set element classes according to optons.action
-			case 'scroll'			: objWrapper.addClass( 'scroll' ); break;
-			case 'push'				: objWrapper.addClass( 'push' ); break;
-			case 'stackoverflow'	: objWrapper.addClass( 'scroll' ); break;
-			default					: objWrapper.addClass( 'hover' );
+			case 'scroll'	: objWrapper.addClass( 'howdydo-scroll' ); break;
+			case 'push'		: objWrapper.addClass( 'howdydo-push' ); break;
+			default			: objWrapper.addClass( 'howdydo-hover' );
 		}
 
 		switch( options.effect ){ // effect options, per effect type
@@ -79,12 +79,14 @@
 			default		: options.effect = 'slide'; effectOptions = { direction: 'up', easing: options.easing };
 		}
 
-		objClose.click( function(){ howdydoHide(); } ); // hide/close on click
-		objOpen.click( function(){ howdydoShow(); } ); // show/open on click
+		objClose.bind( 'click', function(){ if ( !objClose.is( ':animated' ) ) { howdydoHide(); } }); // hide/close on click
+		objOpen.bind( 'click', function(){ if ( !objOpen.is( ':animated' ) ) { howdydoShow(); } }); // show/open on click
 
-		$( document ).keyup( function( e ) { // close on Esc
-		 	if( e.keyCode == 27 && obj.is( ':visible' ) ){ howdydoHide(); }
-		});
+		$( document ).keyup( function( e ) { if( e.keyCode == 27 && obj.is( ':visible' ) ){ howdydoHide();} }); // close on Esc
+		if( options.softClose == true ) { // close on click on document, outside bar
+			obj.click( function( e ) { e.stopPropagation(); });
+			$( document ).click( function(){ howdydoHide() });
+		}
 
 		if( options.keepState == true ){
 			var cookieVal = getHowdydoCookie( 'HowdydoBarState' ); // get cookie value
@@ -117,47 +119,46 @@
 		}
 
 		function howdydoShow( delay ){ // show bar 
-			if( !delay || delay < 0 ) { delay = 0; }
-			setTimeout( function(){
-				if( options.action == 'push' || options.action == 'stackoverflow') {
-					objOpen.toggle( options.effect, effectOptions, options.duration, function() {
-						objWrapper.animate( { height: obj.outerHeight() }, 250,  function() {
-							obj.toggle( options.effect, effectOptions, options.duration, options.callback );
+			if( !obj.is( ':animated, :visible' ) ) {
+				if( !delay || delay < 0 ) { delay = 0; }
+				setTimeout( function(){
+					if( options.action == 'push' ) {
+						objOpen.hide( options.effect, effectOptions, options.duration, function() {
+							objWrapper.animate( { height: obj.outerHeight() }, 250,  function() {
+								obj.show( options.effect, effectOptions, options.duration, options.callback );
+							});
 						});
-					});
-					if( options.action == 'stackoverflow' ) { $( '#header-space' ).animate({ height: obj.outerHeight() }); }
-				} else {
-					obj.toggle( options.effect, effectOptions, options.duration, options.callback );
-					objOpen.toggle( options.effect, effectOptions, options.duration );
-				}
-			}, delay );
-			setHowdydoCookie( 'HowdydoBarState', 'open' );
-			if( options.hideAfter > 0 && options.autoStart == true ) { barAnim = setTimeout( function(){ howdydoHide(); }, ( options.hideAfter + options.duration + options.delay ) ); options.hideAfter = 0; }
+					} else {
+						obj.show( options.effect, effectOptions, options.duration, options.callback );
+						objOpen.hide( options.effect, effectOptions, options.duration );
+					}
+				}, delay );
+				setHowdydoCookie( 'HowdydoBarState', 'open' );
+				if( options.hideAfter > 0 && options.autoStart == true ) { barAnim = setTimeout( function(){ howdydoHide(); }, ( options.hideAfter + options.duration + options.delay ) ); options.hideAfter = 0; }
+			}
 		}
 
 		function howdydoHide(){ // hide bar
-			if( typeof barAnim != 'undefined' ) { clearTimeout( barAnim ); }
-			if( options.action == 'push' || options.action == 'stackoverflow' ) {
-				obj.toggle( options.effect, effectOptions, options.duration, function() {
-					objWrapper.animate( { height: 0 }, 250, function() {
-						if( options.action == 'stackoverflow' ) {
-							$( '#header-space' ).animate({ height: 0 });
-						} else {
-							objOpen.toggle( options.effect, effectOptions, options.duration, options.callback );
-						}
+			if( !obj.is( ':animated, :hidden' ) ) {
+				if( typeof barAnim != 'undefined' ) { clearTimeout( barAnim ); }
+				if( options.action == 'push' ) {
+					obj.hide( options.effect, effectOptions, options.duration, function() {
+						objWrapper.animate( { height: 0 }, 250, function() {
+							objOpen.show( options.effect, effectOptions, options.duration, options.callback );
+						});
 					});
-				});
-			} else {
-				obj.toggle( options.effect, effectOptions, options.duration, options.callback );
-				objOpen.toggle( options.effect, effectOptions, options.duration );
+				} else {
+					obj.hide( options.effect, effectOptions, options.duration, options.callback );
+					objOpen.show( options.effect, effectOptions, options.duration );
+				}
+				setHowdydoCookie( 'HowdydoBarState', 'closed' );
 			}
-			setHowdydoCookie( 'HowdydoBarState', 'closed' );
 		}
 		
 		function setHowdydoCookie( name, value ){ // set cookie
 			if( options.keepState == true ) {
 				var date = new Date();
-				date.setTime( date.getTime() + ( 24*60*60*1000 ) );
+				date.setDate( date.getDate() + 1 );
 				expDate = date.toGMTString();
 				document.cookie = name + "=" + value +";expires=" + expDate + "; path=/";
 			}
