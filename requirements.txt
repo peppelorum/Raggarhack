@@ -1,0 +1,7 @@
+django
+south
+django-extensions
+PIL
+
+
+-e git://github.com/sorl/sorl-thumbnail.git#egg=sorl_thumbnail
